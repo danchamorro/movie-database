@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import MovieList from "./MovieList";
+import MovieDetail from "./MovieDetail";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         </header>
         <Switch>
           <Route exact path="/" component={MovieList} />
-          <Route path="/:id" component={MovieList} />
+          <Route path="/:id" component={MovieDetail} />
         </Switch>
       </div>
     </Router>
