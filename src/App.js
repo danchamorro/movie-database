@@ -2,24 +2,30 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import Movie from "./Movie";
-
-const movies = [
-  {
-    id: 1,
-    title: "Star Wars"
-  },
-  {
-    id: 2,
-    title: "Spider Man"
-  },
-  {
-    id: 3,
-    title: "Liar Liar"
-  }
-];
+import axios from "axios";
 
 class App extends Component {
+  state = {
+    movies: []
+  };
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/discover/movie?api_key=1c10ecb6e88ca14221c98ce286aa3fab&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1"
+      )
+      .then(res => {
+        this.setState({
+          movies: res.data.results
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
+    console.log(this.state.movies);
     return (
       <div className="App">
         <header className="App-header">
@@ -27,7 +33,7 @@ class App extends Component {
         </header>
         <h1>React</h1>
         {/* Iterate over movies */}
-        {movies.map(movie => (
+        {this.state.movies.map(movie => (
           <Movie key={movie.id} movie={movie} />
         ))}
       </div>
